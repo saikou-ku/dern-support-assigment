@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepairService - IT Yordam Markazi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f9f9f9; color: #333; }
+    .nav { background-color: #1e1e2f; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; color: #fff; position: sticky; top: 0; z-index: 10; }
+    .nav .brand { font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .nav .menu a { margin-left: 1rem; text-decoration: none; color: #fff; padding: 0.5rem 1rem; border-radius: 6px; transition: 0.3s; }
+    .nav .menu a:hover { background-color: #333; }
+    .hero { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 4rem 2rem; background: linear-gradient(90deg, #0f2027, #203a43, #2c5364); color: white; }
+    .hero .content { flex: 1; }
+    .hero .content h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero .content p { font-size: 1.1rem; margin-bottom: 1.5rem; }
+    .hero .content a { margin-right: 1rem; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-weight: bold; }
+    .btn-primary { background-color: #00c896; color: white; }
+    .btn-outline { border: 2px solid white; color: white; }
+    .hero img { max-width: 450px; border-radius: 10px; }
+    .section { padding: 4rem 2rem; text-align: center; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .card { background-color: #ffffff; border-radius: 10px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .card i { font-size: 2rem; margin-bottom: 1rem; color: #00c896; }
+    .about, .contact { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 2rem; text-align: left; }
+    .about .text, .contact .info { flex: 1; }
+    .footer { background-color: #1e1e2f; color: #fff; padding: 2rem; text-align: center; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><i class="fas fa-microchip"></i> RepairService</div>
+  <div class="menu">
+    <a href="#services">Xizmatlar</a>
+    <a href="#about">Biz haqimizda</a>
+    <a href="#contact">Bog'lanish</a>
+    <a href="login.html">Kirish</a>
+    <a href="register.html">Ro'yxatdan o'tish</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="content">
+    <h1>Professional IT Yordam Markazi</h1>
+    <p>Kompyuterlar, tarmoqlar, dasturiy ta'minot va xavfsizlik bo‘yicha kompleks xizmatlar ko‘rsatamiz.</p>
+    <a href="register.html" class="btn-primary">Xizmatni Boshlash</a>
+    <a href="#services" class="btn-outline">Xizmatlar Ro'yxati</a>
+  </div>
+  <img src="https://cdn.pixabay.com/photo/2017/08/10/03/47/computer-2619156_1280.jpg" alt="IT banner">
+</section>
+
+<section id="services" class="section">
+  <h2>Bizning IT Xizmatlar</h2>
+  <div class="services-grid">
+    <div class="card"><i class="fas fa-tools"></i><h3>Kompyuter Ta'mirlash</h3><p>Texnik nosozliklar va qurilma almashtirish xizmatlari</p></div>
+    <div class="card"><i class="fas fa-laptop-code"></i><h3>Operatsion Tizim O‘rnatish</h3><p>Windows, Linux va drayverlarni to‘liq sozlash</p></div>
+    <div class="card"><i class="fas fa-wifi"></i><h3>Tarmoq Sozlash</h3><p>Wi-Fi, LAN, modemlar va xavfsiz VPN ulanishlari</p></div>
+    <div class="card"><i class="fas fa-shield-alt"></i><h3>Antivirus va Xavfsizlik</h3><p>Viruslar, firewall va tizim xavfsizligi konfiguratsiyasi</p></div>
+    <div class="card"><i class="fas fa-database"></i><h3>Ma'lumot Tiklash</h3><p>Yo‘qolgan yoki o‘chirilgan fayllarni tiklash xizmatlari</p></div>
+    <div class="card"><i class="fas fa-mobile-alt"></i><h3>Mobil Qurilmalar Yordam</h3><p>Smartfonlar va planshetlar uchun dasturiy/texnik yordam</p></div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <h2>Biz haqimizda</h2>
+  <div class="about">
+    <div class="text">
+      <h3>Nega bizni tanlaysiz?</h3>
+      <ul>
+        <li>✅ 10+ yillik tajribaga ega mutaxassislar</li>
+        <li>✅ Har bir xizmat uchun 6 oy kafolat</li>
+        <li>✅ 24/7 yordam va tezkor xizmat</li>
+      </ul>
+    </div>
+    <div class="text">
+      <h3>Statistik Ma'lumotlar</h3>
+      <p>✔ 1500+ mijozlar xizmatimizdan mamnun</p>
+      <p>✔ 98% muvaffaqiyat ko'rsatkichi</p>
+      <p>✔ 24 soat ichida xizmat ko‘rsatish</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2>Bog‘lanish</h2>
+  <div class="contact">
+    <div class="info">
+      <p><i class="fas fa-phone"></i> +998 90 123 45 67</p>
+      <p><i class="fas fa-envelope"></i> info@repairservice.uz</p>
+      <p><i class="fas fa-map-marker-alt"></i> Toshkent shahri, Yunusobod</p>
+    </div>
+    <div class="info">
+      <h3>Xizmatga yozilish</h3>
+      <p>Ro‘yxatdan o‘ting va xizmatlarimizdan foydalaning</p>
+      <a href="register.html" class="btn-primary">Ro'yxatdan o'tish</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2024 RepairService. Barcha huquqlar himoyalangan.</p>
+</footer>
+</body>
+</html>

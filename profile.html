@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepairService - Profil</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <i class="fas fa-wrench"></i>
+      <span>RepairService</span>
+    </div>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        Bosh sahifa
+      </a>
+      <a href="messages.html" class="nav-link">
+        <i class="fas fa-message"></i>
+        Xabarlar
+      </a>
+      <div class="dropdown">
+        <button class="dropdown-btn" id="userDropdown">
+          <img src="https://via.placeholder.com/32" alt="Profil" class="profile-img" id="profileImg">
+          <span id="username">Foydalanuvchi</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Chiqish
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container">
+    <div class="welcome-section">
+      <h1>Profil Sozlamalari</h1>
+      <p>Hisob ma'lumotlaringizni va sozlamalaringizni boshqaring</p>
+    </div>
+
+    <div class="profile-container">
+      <div class="card">
+        <div class="card-header">
+          <h2>Profil Sozlamalari</h2>
+          <p>Hisob ma'lumotlaringizni va sozlamalaringizni yangilang</p>
+        </div>
+        <div class="card-content">
+          <form id="profileForm">
+            <div id="profileMessage" class="message" style="display: none;"></div>
+
+            <!-- Basic Information -->
+            <div class="form-section">
+              <h3>Asosiy Ma'lumotlar</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="profileUsername">Foydalanuvchi nomi</label>
+                  <input type="text" id="profileUsername" name="username" required>
+                </div>
+                <div class="form-group">
+                  <label for="profileEmail">Email</label>
+                  <input type="email" id="profileEmail" name="email" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-separator"></div>
+
+            <!-- Password Change -->
+            <div class="form-section">
+              <h3>Parolni O'zgartirish</h3>
+              <p class="form-note">Parolni o'zgartirmoqchi bo'lmasangiz, bo'sh qoldiring</p>
+
+              <div class="form-group">
+                <label for="currentPassword">Joriy Parol</label>
+                <input type="password" id="currentPassword" name="currentPassword">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="newPassword">Yangi Parol</label>
+                  <input type="password" id="newPassword" name="newPassword">
+                </div>
+                <div class="form-group">
+                  <label for="confirmNewPassword">Yangi Parolni Tasdiqlang</label>
+                  <input type="password" id="confirmNewPassword" name="confirmNewPassword">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i>
+                <span class="btn-text">O'zgarishlarni Saqlash</span>
+                <span class="btn-loading" style="display: none;">
+                  <i class="fas fa-spinner fa-spin"></i>
+                  Saqlanmoqda...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Account Information -->
+      <div class="card">
+        <div class="card-header">
+          <h2>Hisob Ma'lumotlari</h2>
+        </div>
+        <div class="card-content">
+          <div class="info-row">
+            <span class="info-label">Foydalanuvchi ID:</span>
+            <span class="info-value" id="userIdInfo">-</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">A'zo bo'lgan sana:</span>
+            <span class="info-value" id="memberSinceInfo">-</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="profile.js"></script>
+</body>
+</html>

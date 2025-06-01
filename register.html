@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RepairService - Ro'yxatdan o'tish</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="auth-body">
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon">
+        <i class="fas fa-wrench"></i>
+      </div>
+      <h1>Hisob yaratish</h1>
+      <p>RepairService da ro'yxatdan o'ting</p>
+    </div>
+
+    <div class="auth-content">
+      <form id="registerForm">
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="Email manzilingizni kiriting">
+        </div>
+
+        <div class="form-group">
+          <label for="username">Foydalanuvchi nomi</label>
+          <input type="text" id="username" name="username" required placeholder="Foydalanuvchi nomini tanlang">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Parol</label>
+          <input type="password" id="password" name="password" required placeholder="Parol yarating">
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Parolni tasdiqlang</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Parolni qayta kiriting">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <span class="btn-text">Hisob yaratish</span>
+          <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            Yaratilmoqda...
+                        </span>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Hisobingiz bormi? <a href="login.html">Kiring</a></p>
+        <p><a href="landing.html">Bosh sahifaga qaytish</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>
