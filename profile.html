@@ -3,17 +3,404 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RepairService - Profil</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <title>Dern-Support - Profil</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f8fafc;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e293b;
+      gap: 0.5rem;
+    }
+
+    .nav-brand i {
+      font-size: 2rem;
+      color: #d97706;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: #374151;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link:hover {
+      background: #f3f4f6;
+      color: #1e293b;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-btn {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .dropdown-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #e5e7eb;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: #374151;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background: #f3f4f6;
+      color: #1e293b;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .welcome-section {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: white;
+      padding: 3rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+
+    .welcome-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome-section p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid #f1f5f9;
+      overflow: hidden;
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      padding: 2.5rem;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: center;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid white;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      margin: 0 auto 1.5rem;
+    }
+
+    .profile-header h2 {
+      color: #1e293b;
+      margin-bottom: 0.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    .profile-header p {
+      color: #64748b;
+      font-size: 1.1rem;
+    }
+
+    .profile-content {
+      padding: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.75rem;
+      color: #374151;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem 1.25rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #1e293b;
+      box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.1);
+    }
+
+    .form-group input:disabled {
+      background: #f8fafc;
+      color: #64748b;
+      cursor: not-allowed;
+    }
+
+    .password-section {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .password-section h3 {
+      color: #374151;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1e293b, #334155);
+      color: white;
+      box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 35px rgba(30, 41, 59, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      background: #e2e8f0;
+    }
+
+    .btn-loading {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .error-message,
+    .success-message {
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .error-message {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .success-message {
+      background: #f0fdf4;
+      color: #059669;
+      border: 1px solid #bbf7d0;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .welcome-section {
+        padding: 2rem;
+      }
+
+      .welcome-section h1 {
+        font-size: 2rem;
+      }
+
+      .profile-content {
+        padding: 2rem;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
 <!-- Navigation -->
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-brand">
-      <i class="fas fa-wrench"></i>
-      <span>RepairService</span>
+      <i class="fas fa-tools"></i>
+      <span>Dern-Support</span>
     </div>
     <div class="nav-menu">
       <a href="index.html" class="nav-link">
@@ -21,16 +408,20 @@
         Bosh sahifa
       </a>
       <a href="messages.html" class="nav-link">
-        <i class="fas fa-message"></i>
+        <i class="fas fa-comments"></i>
         Xabarlar
       </a>
       <div class="dropdown">
         <button class="dropdown-btn" id="userDropdown">
-          <img src="https://via.placeholder.com/32" alt="Profil" class="profile-img" id="profileImg">
+          <img src="https://ui-avatars.com/api/?name=User&background=1e293b&color=fff&size=40" alt="Profil" class="profile-img" id="profileImg">
           <span id="username">Foydalanuvchi</span>
           <i class="fas fa-chevron-down"></i>
         </button>
         <div class="dropdown-content">
+          <a href="profile.html">
+            <i class="fas fa-user"></i>
+            Profil
+          </a>
           <a href="#" onclick="logout()">
             <i class="fas fa-sign-out-alt"></i>
             Chiqish
@@ -46,92 +437,326 @@
   <div class="container">
     <div class="welcome-section">
       <h1>Profil Sozlamalari</h1>
-      <p>Hisob ma'lumotlaringizni va sozlamalaringizni boshqaring</p>
+      <p>Shaxsiy ma'lumotlaringizni boshqaring va yangilang</p>
     </div>
 
-    <div class="profile-container">
-      <div class="card">
-        <div class="card-header">
-          <h2>Profil Sozlamalari</h2>
-          <p>Hisob ma'lumotlaringizni va sozlamalaringizni yangilang</p>
-        </div>
-        <div class="card-content">
-          <form id="profileForm">
-            <div id="profileMessage" class="message" style="display: none;"></div>
-
-            <!-- Basic Information -->
-            <div class="form-section">
-              <h3>Asosiy Ma'lumotlar</h3>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="profileUsername">Foydalanuvchi nomi</label>
-                  <input type="text" id="profileUsername" name="username" required>
-                </div>
-                <div class="form-group">
-                  <label for="profileEmail">Email</label>
-                  <input type="email" id="profileEmail" name="email" required>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-separator"></div>
-
-            <!-- Password Change -->
-            <div class="form-section">
-              <h3>Parolni O'zgartirish</h3>
-              <p class="form-note">Parolni o'zgartirmoqchi bo'lmasangiz, bo'sh qoldiring</p>
-
-              <div class="form-group">
-                <label for="currentPassword">Joriy Parol</label>
-                <input type="password" id="currentPassword" name="currentPassword">
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="newPassword">Yangi Parol</label>
-                  <input type="password" id="newPassword" name="newPassword">
-                </div>
-                <div class="form-group">
-                  <label for="confirmNewPassword">Yangi Parolni Tasdiqlang</label>
-                  <input type="password" id="confirmNewPassword" name="confirmNewPassword">
-                </div>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i>
-                <span class="btn-text">O'zgarishlarni Saqlash</span>
-                <span class="btn-loading" style="display: none;">
-                  <i class="fas fa-spinner fa-spin"></i>
-                  Saqlanmoqda...
-                </span>
-              </button>
-            </div>
-          </form>
-        </div>
+    <div class="profile-card">
+      <div class="profile-header">
+        <img src="https://ui-avatars.com/api/?name=User&background=1e293b&color=fff&size=120" alt="Profil rasmi" class="profile-avatar" id="profileAvatar">
+        <h2 id="profileName">Foydalanuvchi</h2>
+        <p id="profileEmail">user@example.com</p>
       </div>
 
-      <!-- Account Information -->
-      <div class="card">
-        <div class="card-header">
-          <h2>Hisob Ma'lumotlari</h2>
-        </div>
-        <div class="card-content">
-          <div class="info-row">
-            <span class="info-label">Foydalanuvchi ID:</span>
-            <span class="info-value" id="userIdInfo">-</span>
+      <div class="profile-content">
+        <form id="profileForm">
+          <div id="errorMessage" class="error-message"></div>
+          <div id="successMessage" class="success-message"></div>
+
+          <div class="form-group">
+            <label for="currentUsername">Foydalanuvchi nomi</label>
+            <input type="text" id="currentUsername" name="username" required placeholder="Foydalanuvchi nomini kiriting" minlength="3">
           </div>
-          <div class="info-row">
-            <span class="info-label">A'zo bo'lgan sana:</span>
-            <span class="info-value" id="memberSinceInfo">-</span>
+
+          <div class="form-group">
+            <label for="currentEmail">Email manzil</label>
+            <input type="email" id="currentEmail" name="email" required placeholder="Email manzilingizni kiriting">
           </div>
-        </div>
+
+          <div class="form-group">
+            <label for="userId">Foydalanuvchi ID</label>
+            <input type="text" id="userId" name="userId" disabled>
+          </div>
+
+          <div class="password-section">
+            <h3>
+              <i class="fas fa-lock"></i>
+              Parolni o'zgartirish
+            </h3>
+
+            <div class="form-group">
+              <label for="currentPassword">Joriy parol</label>
+              <input type="password" id="currentPassword" name="currentPassword" placeholder="Joriy parolingizni kiriting">
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">Yangi parol</label>
+              <input type="password" id="newPassword" name="newPassword" placeholder="Yangi parol yarating" minlength="6">
+            </div>
+
+            <div class="form-group">
+              <label for="confirmNewPassword">Yangi parolni tasdiqlang</label>
+              <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Yangi parolni qayta kiriting">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="loadProfile()">
+              <i class="fas fa-undo"></i>
+              Bekor qilish
+            </button>
+            <button type="submit" class="btn btn-primary">
+                                <span class="btn-text">
+                                    <i class="fas fa-save"></i>
+                                    Saqlash
+                                </span>
+              <span class="btn-loading">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    Saqlanmoqda...
+                                </span>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </main>
 
-<script src="profile.js"></script>
+<script>
+  // API Configuration
+  const API_BASE_URL = "http://localhost:5000/api"
+  let currentUser = null
+
+  // Initialize profile page
+  document.addEventListener("DOMContentLoaded", () => {
+    checkAuth()
+    loadProfile()
+    initializeEventListeners()
+  })
+
+  // Check authentication
+  function checkAuth() {
+    const token = localStorage.getItem("token")
+    const userData = localStorage.getItem("user")
+
+    if (!token || !userData) {
+      window.location.href = "login.html"
+      return
+    }
+
+    try {
+      currentUser = JSON.parse(userData)
+      updateNavbar()
+    } catch (error) {
+      console.error("Error parsing user data:", error)
+      logout()
+    }
+  }
+
+  // Update navbar with user info
+  function updateNavbar() {
+    if (!currentUser) return
+
+    const usernameElement = document.getElementById("username")
+    const profileImgElement = document.getElementById("profileImg")
+
+    if (usernameElement) {
+      usernameElement.textContent = currentUser.username
+    }
+
+    if (profileImgElement) {
+      profileImgElement.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.username)}&background=1e293b&color=fff&size=40`
+    }
+  }
+
+  // Load profile data
+  async function loadProfile() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        const user = data.user
+
+        // Update profile display
+        document.getElementById("profileName").textContent = user.username
+        document.getElementById("profileEmail").textContent = user.email
+        document.getElementById("profileAvatar").src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=1e293b&color=fff&size=120`
+
+        // Update form fields
+        document.getElementById("currentUsername").value = user.username
+        document.getElementById("currentEmail").value = user.email
+        document.getElementById("userId").value = user.uid
+
+        // Clear password fields
+        document.getElementById("currentPassword").value = ""
+        document.getElementById("newPassword").value = ""
+        document.getElementById("confirmNewPassword").value = ""
+
+        hideMessages()
+      } else if (response.status === 401) {
+        logout()
+      } else {
+        showError("Profil ma'lumotlarini yuklashda xatolik")
+      }
+    } catch (error) {
+      console.error("Error loading profile:", error)
+      showError("Tarmoq xatosi. Qaytadan urinib ko'ring.")
+    }
+  }
+
+  // Initialize event listeners
+  function initializeEventListeners() {
+    const profileForm = document.getElementById("profileForm")
+    if (profileForm) {
+      profileForm.addEventListener("submit", handleProfileUpdate)
+    }
+  }
+
+  // Handle profile update
+  async function handleProfileUpdate(e) {
+    e.preventDefault()
+
+    const form = e.target
+    const submitBtn = form.querySelector('button[type="submit"]')
+
+    hideMessages()
+
+    // Get form values
+    const username = form.username.value.trim()
+    const email = form.email.value.trim()
+    const currentPassword = form.currentPassword.value
+    const newPassword = form.newPassword.value
+    const confirmNewPassword = form.confirmNewPassword.value
+
+    // Validate form
+    if (!username || !email) {
+      showError("Iltimos, foydalanuvchi nomi va email manzilini kiriting")
+      return
+    }
+
+    if (username.length < 3) {
+      showError("Foydalanuvchi nomi kamida 3 ta belgidan iborat bo'lishi kerak")
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      showError("Iltimos, to'g'ri email manzilini kiriting")
+      return
+    }
+
+    // Validate password change if provided
+    if (currentPassword || newPassword || confirmNewPassword) {
+      if (!currentPassword) {
+        showError("Parolni o'zgartirish uchun joriy parolni kiriting")
+        return
+      }
+
+      if (!newPassword) {
+        showError("Yangi parolni kiriting")
+        return
+      }
+
+      if (newPassword.length < 6) {
+        showError("Yangi parol kamida 6 ta belgidan iborat bo'lishi kerak")
+        return
+      }
+
+      if (newPassword !== confirmNewPassword) {
+        showError("Yangi parollar mos kelmaydi")
+        return
+      }
+    }
+
+    toggleButtonLoading(submitBtn, true)
+
+    try {
+      const updateData = {
+        username: username,
+        email: email,
+      }
+
+      if (currentPassword && newPassword) {
+        updateData.currentPassword = currentPassword
+        updateData.newPassword = newPassword
+      }
+
+      const response = await fetch(`${API_BASE_URL}/auth/profile`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        // Update stored user data
+        const updatedUser = { ...currentUser, ...data.user }
+        localStorage.setItem("user", JSON.stringify(updatedUser))
+        currentUser = updatedUser
+
+        showSuccess("Profil muvaffaqiyatli yangilandi!")
+        updateNavbar()
+        loadProfile() // Reload to show updated data
+      } else {
+        showError(data.error || "Profilni yangilashda xatolik")
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error)
+      showError("Tarmoq xatosi. Qaytadan urinib ko'ring.")
+    } finally {
+      toggleButtonLoading(submitBtn, false)
+    }
+  }
+
+  // Utility functions
+  function toggleButtonLoading(button, isLoading) {
+    const btnText = button.querySelector(".btn-text")
+    const btnLoading = button.querySelector(".btn-loading")
+
+    if (isLoading) {
+      button.disabled = true
+      if (btnText) btnText.style.display = "none"
+      if (btnLoading) btnLoading.style.display = "flex"
+    } else {
+      button.disabled = false
+      if (btnText) btnText.style.display = "inline"
+      if (btnLoading) btnLoading.style.display = "none"
+    }
+  }
+
+  function showError(message) {
+    const errorElement = document.getElementById("errorMessage")
+    if (errorElement) {
+      errorElement.textContent = message
+      errorElement.style.display = "block"
+      errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+  }
+
+  function showSuccess(message) {
+    const successElement = document.getElementById("successMessage")
+    if (successElement) {
+      successElement.textContent = message
+      successElement.style.display = "block"
+      successElement.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
+  }
+
+  function hideMessages() {
+    const errorElement = document.getElementById("errorMessage")
+    const successElement = document.getElementById("successMessage")
+
+    if (errorElement) errorElement.style.display = "none"
+    if (successElement) successElement.style.display = "none"
+  }
+
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  function logout() {
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+    window.location.href = "login.html"
+  }
+</script>
 </body>
 </html>

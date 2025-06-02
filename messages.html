@@ -3,27 +3,193 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RepairService - Xabarlar</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <title>Dern-Support - Xabarlar</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: #f8fafc;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .navbar {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #1e293b;
+      gap: 0.5rem;
+    }
+
+    .nav-brand i {
+      font-size: 2rem;
+      color: #d97706;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      color: #374151;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-link:hover {
+      background: #f3f4f6;
+      color: #1e293b;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-btn {
+      background: none;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      color: #374151;
+    }
+
+    .dropdown-btn:hover {
+      background: #f3f4f6;
+    }
+
+    .profile-img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #e5e7eb;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e5e7eb;
+      min-width: 200px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      color: #374151;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background: #f3f4f6;
+      color: #1e293b;
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 2rem 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .welcome-section {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .welcome-section h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .welcome-section p {
+      opacity: 0.9;
+    }
+
     /* Enhanced chat styles */
     .chat-container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       background: white;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
       overflow: hidden;
-      height: 600px;
+      height: 700px;
       display: flex;
       flex-direction: column;
+      border: 1px solid #f1f5f9;
     }
 
     .chat-header {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e293b, #334155);
       color: white;
-      padding: 1.5rem;
+      padding: 1.5rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -36,19 +202,20 @@
     }
 
     .chat-avatar {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      border: 3px solid rgba(255, 255, 255, 0.3);
     }
 
     .chat-user-info h3 {
       margin: 0;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
 
     .chat-status {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       opacity: 0.8;
     }
 
@@ -61,27 +228,68 @@
       background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      padding: 0.5rem;
-      border-radius: 8px;
+      padding: 0.75rem;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
+      font-size: 1rem;
     }
 
     .chat-refresh-btn:hover {
       background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
     }
 
     .chat-messages {
       flex: 1;
-      padding: 1.5rem;
+      padding: 2rem;
       overflow-y: auto;
       background: #f8fafc;
     }
 
+    .empty-chat-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: #64748b;
+    }
+
+    .empty-chat-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: #94a3b8;
+    }
+
+    .empty-chat-state h3 {
+      color: #374151;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .date-separator {
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .date-separator span {
+      background: #e2e8f0;
+      color: #64748b;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
     .message-item {
       display: flex;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
       align-items: flex-start;
     }
 
@@ -94,35 +302,37 @@
     }
 
     .message-avatar img {
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 2px solid #e2e8f0;
     }
 
     .message-bubble {
       max-width: 70%;
-      padding: 0.75rem 1rem;
-      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      border-radius: 16px;
       position: relative;
+      word-wrap: break-word;
     }
 
     .message-item.sent .message-bubble {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e293b, #334155);
       color: white;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 6px;
     }
 
     .message-item.received .message-bubble {
       background: white;
       color: #1f2937;
       border: 1px solid #e2e8f0;
-      border-bottom-left-radius: 4px;
+      border-bottom-left-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .message-text {
-      margin-bottom: 0.25rem;
-      line-height: 1.4;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
     }
 
     .message-time {
@@ -131,48 +341,62 @@
     }
 
     .chat-input {
-      padding: 1.5rem;
+      padding: 1.5rem 2rem;
       background: white;
       border-top: 1px solid #e2e8f0;
     }
 
     .chat-input form {
       display: flex;
-      gap: 0.75rem;
+      gap: 1rem;
       align-items: center;
     }
 
     .chat-input input {
       flex: 1;
-      padding: 0.75rem 1rem;
+      padding: 1rem 1.25rem;
       border: 2px solid #e2e8f0;
       border-radius: 25px;
       font-size: 1rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.3s ease;
     }
 
     .chat-input input:focus {
-      border-color: #667eea;
+      border-color: #1e293b;
+      box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.1);
+    }
+
+    .chat-input input:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     .chat-input button {
-      background: linear-gradient(135deg, #667eea, #764ba2);
+      background: linear-gradient(135deg, #1e293b, #334155);
       color: white;
       border: none;
-      padding: 0.75rem;
+      padding: 1rem;
       border-radius: 50%;
       cursor: pointer;
-      transition: transform 0.2s;
-      width: 48px;
-      height: 48px;
+      transition: all 0.3s ease;
+      width: 56px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 1.1rem;
     }
 
     .chat-input button:hover {
       transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(30, 41, 59, 0.3);
+    }
+
+    .chat-input button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
     }
 
     /* Scrollbar styling */
@@ -192,6 +416,46 @@
     .chat-messages::-webkit-scrollbar-thumb:hover {
       background: #94a3b8;
     }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+
+      .container {
+        padding: 0 1rem;
+      }
+
+      .chat-container {
+        height: 600px;
+        border-radius: 16px;
+      }
+
+      .chat-header {
+        padding: 1rem 1.5rem;
+      }
+
+      .chat-messages {
+        padding: 1.5rem;
+      }
+
+      .chat-input {
+        padding: 1rem 1.5rem;
+      }
+
+      .message-bubble {
+        max-width: 85%;
+      }
+
+      .welcome-section {
+        padding: 1.5rem;
+      }
+
+      .welcome-section h1 {
+        font-size: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -199,8 +463,8 @@
 <nav class="navbar">
   <div class="nav-container">
     <div class="nav-brand">
-      <i class="fas fa-wrench"></i>
-      <span>RepairService</span>
+      <i class="fas fa-tools"></i>
+      <span>Dern-Support</span>
     </div>
     <div class="nav-menu">
       <a href="index.html" class="nav-link">
@@ -209,7 +473,7 @@
       </a>
       <div class="dropdown">
         <button class="dropdown-btn" id="userDropdown">
-          <img src="https://ui-avatars.com/api/?name=User&background=667eea&color=fff&size=32" alt="Profil" class="profile-img" id="profileImg">
+          <img src="https://ui-avatars.com/api/?name=User&background=1e293b&color=fff&size=40" alt="Profil" class="profile-img" id="profileImg">
           <span id="username">Foydalanuvchi</span>
           <i class="fas fa-chevron-down"></i>
         </button>
@@ -239,7 +503,7 @@
     <div class="chat-container">
       <div class="chat-header">
         <div class="chat-user">
-          <img src="https://ui-avatars.com/api/?name=Admin&background=667eea&color=fff&size=40" alt="Foydalanuvchi" class="chat-avatar">
+          <img src="https://ui-avatars.com/api/?name=Admin&background=1e293b&color=fff&size=50" alt="Foydalanuvchi" class="chat-avatar">
           <div class="chat-user-info">
             <h3 id="chatUserName">Admin Yordam</h3>
             <span class="chat-status">Onlayn</span>
@@ -247,7 +511,7 @@
         </div>
         <div class="chat-actions">
           <button class="chat-refresh-btn" id="refreshMessages" title="Xabarlarni yangilash">
-            <i class="fas fa-refresh"></i>
+            <i class="fas fa-sync-alt"></i>
           </button>
         </div>
       </div>
@@ -258,7 +522,7 @@
 
       <div class="chat-input">
         <form id="messageForm">
-          <input type="text" id="messageInput" placeholder="Xabaringizni yozing..." required>
+          <input type="text" id="messageInput" placeholder="Xabaringizni yozing..." required maxlength="1000">
           <button type="submit">
             <i class="fas fa-paper-plane"></i>
           </button>

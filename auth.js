@@ -27,7 +27,7 @@ function initializeAuthForms() {
     }
 }
 
-// Add request interceptor for better error handling
+// Enhanced request function with better error handling
 async function makeRequest(url, options = {}) {
     try {
         const defaultOptions = {
@@ -53,7 +53,7 @@ async function makeRequest(url, options = {}) {
     }
 }
 
-// Update the handleLogin function to use makeRequest
+// Handle login with enhanced validation
 async function handleLogin(e) {
     e.preventDefault()
 
@@ -64,6 +64,20 @@ async function handleLogin(e) {
     // Clear previous errors
     hideError(errorElement)
 
+    // Validate form
+    const email = form.email.value.trim()
+    const password = form.password.value
+
+    if (!email || !password) {
+        showError(errorElement, "Iltimos, barcha maydonlarni to'ldiring")
+        return
+    }
+
+    if (!isValidEmail(email)) {
+        showError(errorElement, "Iltimos, to'g'ri email manzilini kiriting")
+        return
+    }
+
     // Show loading state
     toggleButtonLoading(submitBtn, true)
 
@@ -71,8 +85,8 @@ async function handleLogin(e) {
         const data = await makeRequest(`${API_BASE_URL}/auth/login`, {
             method: "POST",
             body: JSON.stringify({
-                email: form.email.value,
-                password: form.password.value,
+                email: email,
+                password: password,
             }),
         })
 
@@ -80,17 +94,22 @@ async function handleLogin(e) {
         localStorage.setItem("token", data.token)
         localStorage.setItem("user", JSON.stringify(data.user))
 
-        // Redirect to dashboard
-        window.location.href = "index.html"
+        // Show success message
+        showSuccessMessage("Muvaffaqiyatli kirildi! Yo'naltirilmoqda...")
+
+        // Redirect to dashboard after short delay
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 1000)
     } catch (error) {
         console.error("Login error:", error)
-        showError(errorElement, error.message || "Tarmoq xatosi. Qaytadan urinib ko'ring.")
+        showError(errorElement, error.message || "Kirish jarayonida xatolik yuz berdi")
     } finally {
         toggleButtonLoading(submitBtn, false)
     }
 }
 
-// Update the handleRegister function similarly
+// Handle registration with enhanced validation
 async function handleRegister(e) {
     e.preventDefault()
 
@@ -101,9 +120,32 @@ async function handleRegister(e) {
     // Clear previous errors
     hideError(errorElement)
 
-    // Validate passwords match
+    // Get form values
+    const email = form.email.value.trim()
+    const username = form.username.value.trim()
     const password = form.password.value
     const confirmPassword = form.confirmPassword.value
+
+    // Validate form
+    if (!email || !username || !password || !confirmPassword) {
+        showError(errorElement, "Iltimos, barcha maydonlarni to'ldiring")
+        return
+    }
+
+    if (!isValidEmail(email)) {
+        showError(errorElement, "Iltimos, to'g'ri email manzilini kiriting")
+        return
+    }
+
+    if (username.length < 3) {
+        showError(errorElement, "Foydalanuvchi nomi kamida 3 ta belgidan iborat bo'lishi kerak")
+        return
+    }
+
+    if (password.length < 6) {
+        showError(errorElement, "Parol kamida 6 ta belgidan iborat bo'lishi kerak")
+        return
+    }
 
     if (password !== confirmPassword) {
         showError(errorElement, "Parollar mos kelmaydi")
@@ -117,8 +159,8 @@ async function handleRegister(e) {
         const data = await makeRequest(`${API_BASE_URL}/auth/register`, {
             method: "POST",
             body: JSON.stringify({
-                email: form.email.value,
-                username: form.username.value,
+                email: email,
+                username: username,
                 password: password,
             }),
         })
@@ -127,11 +169,16 @@ async function handleRegister(e) {
         localStorage.setItem("token", data.token)
         localStorage.setItem("user", JSON.stringify(data.user))
 
-        // Redirect to welcome page
-        window.location.href = "welcome.html"
+        // Show success message
+        showSuccessMessage("Hisob muvaffaqiyatli yaratildi! Yo'naltirilmoqda...")
+
+        // Redirect to dashboard after short delay
+        setTimeout(() => {
+            window.location.href = "index.html"
+        }, 1000)
     } catch (error) {
         console.error("Registration error:", error)
-        showError(errorElement, error.message || "Tarmoq xatosi. Qaytadan urinib ko'ring.")
+        showError(errorElement, error.message || "Ro'yxatdan o'tishda xatolik yuz berdi")
     } finally {
         toggleButtonLoading(submitBtn, false)
     }
@@ -157,6 +204,7 @@ function showError(element, message) {
     if (element) {
         element.textContent = message
         element.style.display = "block"
+        element.scrollIntoView({ behavior: "smooth", block: "center" })
     }
 }
 
@@ -164,4 +212,42 @@ function hideError(element) {
     if (element) {
         element.style.display = "none"
     }
+}
+
+function showSuccessMessage(message) {
+    const notification = document.createElement("div")
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #059669;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        font-weight: 500;
+        z-index: 10000;
+        box-shadow: 0 8px 25px rgba(5, 150, 105, 0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `
+    notification.textContent = message
+    document.body.appendChild(notification)
+
+    setTimeout(() => {
+        notification.style.transform = "translateX(0)"
+    }, 100)
+
+    setTimeout(() => {
+        notification.style.transform = "translateX(100%)"
+        setTimeout(() => {
+            if (document.body.contains(notification)) {
+                document.body.removeChild(notification)
+            }
+        }, 300)
+    }, 3000)
+}
+
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
 }
